@@ -13,6 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        UserStatusSeeder::class;
+        SubscriptionStatusSeeder::class;
+        PaymentStatusSeeder::class;
+        PostStatusSeeder::class;
+        UserSeeder::class;
+        RoleSeeder::class;
+        RoleUserSeeder::class;
+        CategorySeeder::class;
+        SubscriptionPlanSeeder::class;
+        SubscriptionSeeder::class;
+        PaymentSeeder::class;
+        PostSeeder::class;
     }
 }
