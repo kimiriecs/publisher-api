@@ -10,9 +10,21 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@vue/compiler-sfc": "^3.2.23",
+        "autoprefixer": "^10.4.0",
         "axios": "^0.21",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.4.4",
+        "postcss-import": "^14.0.2",
+        "postcss-nesting": "^10.0.2",
+        "tailwindcss": "^2.2.19",
+        "vue-loader": "^15.9.8"
+    },
+    "dependencies": {
+        "@heroicons/vue": "^1.0.5",
+        "vue": "^3.2.23",
+        "vue-router": "^4.0.12",
+        "vuex": "^4.0.2"
     }
 }
