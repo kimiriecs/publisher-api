@@ -19,7 +19,7 @@ class CreateSubscriptionsTable extends Migration
                     ->unique();
             $table->integer('posts_used_count')
                     ->nullable();
-            $table->integer('remains')
+            $table->integer('day_remains')
                     ->nullable();
             $table->timestamp('started_at')
                     ->nullable();

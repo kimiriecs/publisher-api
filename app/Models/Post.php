@@ -26,6 +26,13 @@ class Post extends Model
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['author', 'category', 'status'];
+
+    /**
      * Get user that post belongs to
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -54,6 +61,14 @@ class Post extends Model
      */
     public function status()
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(PostStatus::class);
+    }
+
+    /**
+     * Get the AdminProfile's image model
+     */
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'image');
     }
 }

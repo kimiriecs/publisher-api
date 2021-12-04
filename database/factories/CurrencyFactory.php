@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProfileFactory extends Factory
+class CurrencyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -13,8 +13,12 @@ class ProfileFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
+
+        $data = [
+            'name' => '',
+            'symbol' => '',
         ];
+
+        return $data;
     }
 }

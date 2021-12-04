@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
                     ->constrained()
                     ->cascadeOnUpdate()
                     ->nullOnDelete();
+            $table->morphs('profile');
             $table->timestamps();
             $table->softDeletes();
         });

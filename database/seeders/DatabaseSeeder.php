@@ -13,17 +13,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        UserStatusSeeder::class;
-        SubscriptionStatusSeeder::class;
-        PaymentStatusSeeder::class;
-        PostStatusSeeder::class;
-        UserSeeder::class;
-        RoleSeeder::class;
-        RoleUserSeeder::class;
-        CategorySeeder::class;
-        SubscriptionPlanSeeder::class;
-        SubscriptionSeeder::class;
-        PaymentSeeder::class;
-        PostSeeder::class;
+        $this->call([
+            
+            CategorySeeder::class,
+            UserStatusSeeder::class,
+            UserSeeder::class,
+            RoleSeeder::class,
+            RoleUserSeeder::class,
+            PostStatusSeeder::class,
+            PostSeeder::class,
+            SubscriptionPlanStatusSeeder::class,
+            SubscriptionPlanSeeder::class,
+            SubscriptionStatusSeeder::class,
+            SubscriptionSeeder::class,
+            PaymentMethodStatusSeeder::class,
+            PaymentMethodSeeder::class,
+            PaymentStatusSeeder::class,
+            PaymentSeeder::class,
+            CurrencySeeder::class,
+            AdminProfileSeeder::class,
+            UserProfileSeeder::class,
+            ImageSeeder::class,
+
+        ]);
+
     }
 }

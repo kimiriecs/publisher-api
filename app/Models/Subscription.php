@@ -22,7 +22,7 @@ class Subscription extends Model
         'posts_used_count',
         'remains',
         'started_at',
-        'fineshed_at',
+        'finished_at',
         'user_id',
         'subscription_plan_id',
         'subscription_status_id',
@@ -67,7 +67,7 @@ class Subscription extends Model
      */
     public function status()
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(SubscriptionStatus::class);
     }
 
 

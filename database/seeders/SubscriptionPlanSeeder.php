@@ -59,7 +59,8 @@ class SubscriptionPlanSeeder extends Seeder
 
         foreach ($subscriptionPlans as $plan) {
 
-            $status = SubscriptionPlanStatus::all()->random()->id;
+            $status = rand(1, 10);
+            // $status = rand(1, SubscriptionPlanStatus::all()->count());
 
             SubscriptionPlan::factory()->create([
                 'name' => $plan['name'],
@@ -67,6 +68,7 @@ class SubscriptionPlanSeeder extends Seeder
                 'posts_total_count' => $plan['posts_total_count'],
                 'subscription_period' => $plan['subscription_period'],
                 'subscription_plan_status_id' => $status,
+                // 'subscription_plan_status_id' => rand(1, 10),
             ]);
         }
     }

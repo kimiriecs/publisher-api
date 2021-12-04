@@ -2,13 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\UserStatus;
+use App\Traits\HasRole;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
+    use HasRole;
+
     /**
      * Define the model's default state.
      *
@@ -29,6 +33,8 @@ class UserFactory extends Factory
         
         $status = UserStatus::all()->random()->id;
 
+
+
         $data = [
             'name' => $name,
             'email' => $email,
@@ -36,6 +42,8 @@ class UserFactory extends Factory
             'password' => $password,
             'remember_token' => $remember_token,
             'user_status_id' => $status,
+            'profile_id' => '',
+            'profile_type' => '',
         ];
 
         return $data;

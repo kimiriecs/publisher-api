@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PaymentMethodStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PaymentMethodFactory extends Factory
@@ -13,8 +14,12 @@ class PaymentMethodFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
+
+        $data = [
+            'name' => '',
+            'payment_method_status_id' => '',
         ];
+
+        return $data;
     }
 }

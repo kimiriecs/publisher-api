@@ -18,7 +18,8 @@ class CreateSubscriptionPlansTable extends Migration
             $table->string('name');
             $table->integer('price')
                     ->nullable();
-            $table->integer('posts_total_count');
+            $table->integer('posts_total_count')
+                    ->nullable();
             $table->integer('subscription_period');
             $table->foreignId('subscription_plan_status_id')
                     ->nullable()

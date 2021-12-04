@@ -25,7 +25,7 @@ class CreatePaymentsTable extends Migration
                     ->constrained()
                     ->cascadeOnUpdate()
                     ->restrictOnDelete();
-            $table->foreignId('paiment_status_id')
+            $table->foreignId('payment_status_id')
                     ->nullable()
                     ->constrained()
                     ->cascadeOnUpdate()

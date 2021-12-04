@@ -14,8 +14,29 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        
-        User::factory(30)->create();
+
+        $usersCount = 30;
+
+        $administrationCount = 4;
+
+        for ($i=0; $i < $usersCount; $i++) { 
+
+            if ($i < $administrationCount) {
+
+                User::factory()->create([
+                    'profile_id' => $i+1,
+                    'profile_type' => 'admin-profile',
+                ]);
+
+            } else {
+
+                User::factory()->create([
+                    'profile_id' => $i+1,
+                    'profile_type' => 'user-profile',
+                ]);
+                
+            }
+        }
 
     }
 }

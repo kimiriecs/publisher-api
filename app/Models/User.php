@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasRole;
 use Doctrine\Inflector\Rules\Substitution;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,9 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory, Notifiable;
-    use SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRole;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +24,19 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_status_id',
+        'profile_id',
+        'profile_type',
     ];
+
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['profile', 'roles', 'status'];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,6 +56,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the parent profile model (AdminProfile or UserProfile).
+     */
+    public function profile()
+    {
+        return $this->morphTo();
+    }
 
 
     /**
@@ -66,7 +85,7 @@ class User extends Authenticatable
      */
     public function status()
     {
-        return $this->belongsTo(Status::class, 'statusable');
+        return $this->belongsTo(UserStatus::class, 'statusable');
     }
 
 
@@ -89,7 +108,7 @@ class User extends Authenticatable
      */    
     public function paymentsThroughSubscriptions() {
 
-        return $this->hasManyThrough(Payment::class, Substitution::class);
+        return $this->hasManyThrough(Payment::class, Subscription::class);
 
     }
 
@@ -137,7 +156,7 @@ class User extends Authenticatable
     /**
      * Get the plans that the current user belongs to
      * 
-     * payments table subscriptions role of a pivot table for current relationship
+     * payments table subscriptions roles of a pivot table for current relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

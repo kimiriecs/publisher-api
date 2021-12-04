@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use Illuminate\Database\Seeder;
-use Str;
+use Illuminate\Support\Str;
+
 
 class CategorySeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class CategorySeeder extends Seeder
         $rootCategory = 'categories';
         $mainCategories = ['users', 'managment', 'blog'];
         $subCategories = [
-            ['roles', 'permissios', 'administration', 'authors', 'guests',],
+            ['roles', 'permissions', 'administration', 'authors', 'guests',],
             ['plans', 'subscriptions', 'payments'],
             ['parenting','pets','food','diy','finance','political','news','business','travel','sports','fitness','cars','movie','music','gaming','fashion',],
         ];
@@ -30,8 +31,7 @@ class CategorySeeder extends Seeder
             [
                 'name' =>  $cName,
                 'slug' =>  Str::slug($cName),
-                'description' => $this->faker->sentences(1),
-                'parent_id' =>  $parent_id,
+                'parent_category_id' =>  $parent_id,
             ]
         );
 
@@ -42,8 +42,7 @@ class CategorySeeder extends Seeder
                 [
                     'name' =>  $cName,
                     'slug' =>  Str::slug($cName),
-                    'description' => $this->faker->sentences(1),
-                    'parent_id' =>  $parent_id,
+                    'parent_category_id' =>  $parent_id,
                 ]
             );
         }
@@ -55,8 +54,7 @@ class CategorySeeder extends Seeder
                     [
                         'name' =>  $cName,
                         'slug' =>  Str::slug($cName),
-                        'description' => $this->faker->sentences(1),
-                        'parent_id' =>  $parent_id,
+                        'parent_category_id' =>  $parent_id,
                     ]
                 );
             }

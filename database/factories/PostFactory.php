@@ -21,7 +21,7 @@ class PostFactory extends Factory
 
         $body = $this->faker->paragraph(10);
 
-        $author_id = User::all()->random()->id;
+        $user_id = User::all()->random()->id;
 
         $category_id = Category::all()->random()->id;
 
@@ -30,7 +30,7 @@ class PostFactory extends Factory
         $data = [
             'title' => $title,
             'body' => $body,
-            'author_id' => $author_id,
+            'user_id' => $user_id,
             'category_id' => $category_id,
             'post_status_id' => $post_status_id,
         ];

@@ -15,7 +15,6 @@ class SubscriptionStatusSeeder extends Seeder
     public function run()
     {
 
-
         $subscriptionStatuses = [ 
             'active',
             'past_due',

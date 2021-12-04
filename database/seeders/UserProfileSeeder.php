@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserProfile;
 use Illuminate\Database\Seeder;
 
-class ProfileSeeder extends Seeder
+class UserProfileSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,6 @@ class ProfileSeeder extends Seeder
      */
     public function run()
     {
-        //
+        UserProfile::factory(26)->create();
     }
 }

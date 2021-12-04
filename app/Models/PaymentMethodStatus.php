@@ -6,18 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentMethod extends Model
+class PaymentMethodStatus extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
+
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
-    protected $hidden = [
+    protected $fillable = [
         'name',
-        'payment_method_status_id',
+        'description',
     ];
 }
