@@ -18,7 +18,8 @@ class Payment extends Model
      * @var string[]
      */
     protected $fillable = [
-        'payment_number',
+        'encryption',
+        'amount',
         'user_id',
         'subscription_id',
         'payment_status_id',

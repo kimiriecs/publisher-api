@@ -14,8 +14,8 @@ class ImageFactory extends Factory
     public function definition()
     {
         $data = [
-            'url' => '',
-            'description' => '',
+            'url' => $this->faker->imageUrl(400,400),
+            'description' => $this->faker->sentence(3),
             'imageable_id' => '',
             'imageable_type' => '',
         ];

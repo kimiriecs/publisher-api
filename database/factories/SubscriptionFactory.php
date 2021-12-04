@@ -25,9 +25,11 @@ class SubscriptionFactory extends Factory
         $user_id = rand(1, User::all()->count());
         $subscription_plan_id = rand(1, SubscriptionPlan::all()->count());
         $subscription_status_id = rand(1, SubscriptionStatus::all()->count());
+        $posts_total_count = SubscriptionPlan::find($subscription_plan_id)->posts_total_count;
 
         $data = [
             'encryption' => $encryption,
+            'posts_total_count' => $posts_total_count,
             'posts_used_count' => $posts_used_count,
             'day_remains' => $day_remains,
             'started_at' => $started_at,

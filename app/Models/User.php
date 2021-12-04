@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'slug',
         'user_status_id',
         'profile_id',
         'profile_type',
@@ -35,7 +36,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $with = ['profile', 'roles', 'status'];
+    protected $with = ['roles', 'status'];
 
 
     /**
@@ -102,17 +103,6 @@ class User extends Authenticatable
 
 
     /**
-     * Get the payments that belongs to the user through the user's subscriptions
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */    
-    public function paymentsThroughSubscriptions() {
-
-        return $this->hasManyThrough(Payment::class, Subscription::class);
-
-    }
-
-    /**
      * Get the last subscriptions that belongs to the user
      * 
      * payments table playes role of a pivot table for current relationship
@@ -124,6 +114,7 @@ class User extends Authenticatable
         return $this->hasOne(Payment::class)->latestOfMany();
 
     }
+
 
     /**
      * Get the subscriptions that belongs to the user
@@ -150,6 +141,7 @@ class User extends Authenticatable
         
         return $this->hasOne(Subscription::class)->latestOfMany();
 
+
     }
 
 
@@ -163,6 +155,32 @@ class User extends Authenticatable
     public function plans() {
         
         return $this->belongsToMany(Subscription::class, 'subscriptions');
+
+    }
+
+
+    
+    
+    /**
+     * Get the all posts that belongs to the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts() {
+        
+        return $this->hasMany(Post::class);
+
+    }
+
+
+    /**
+     * Get the last post that belongs to the user
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\Concerns\CanBeOneOfMany::latestOfMany
+     */
+    public function lastPost() {
+        
+        return $this->hasOne(Post::class)->latestOfMany();
 
     }
 

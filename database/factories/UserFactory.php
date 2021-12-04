@@ -29,6 +29,8 @@ class UserFactory extends Factory
 
         $password = Hash::make('password');
 
+        $slug =  Str::slug($name);
+
         $remember_token = Str::random(10);
         
         $status = UserStatus::all()->random()->id;
@@ -40,6 +42,7 @@ class UserFactory extends Factory
             'email' => $email,
             'email_verified_at' => $email_verified_at,
             'password' => $password,
+            'slug' => $slug,
             'remember_token' => $remember_token,
             'user_status_id' => $status,
             'profile_id' => '',

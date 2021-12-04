@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\SubscriptionCreateRequest;
+use App\Http\Requests\SubscriptionUpdateRequest;
+use App\Models\SubscriptionStatus;
 use App\Models\Subscription;
-use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
@@ -14,18 +17,67 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        //
+        $subscriptions = Subscription::paginate(10);
+
+        return $subscriptions;
     }
+
+
+    /**
+     * Display a listing of the CONCRETE user's subscriptions
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userSubscriptions($user)
+    {
+        $subscriptions = Subscription::where('user_id', $user)->paginate(10);
+
+        return $subscriptions;
+    }
+
+
+    /**
+     * Display a listing of the currently authenticated user's subscriptions
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function currentUserSubscriptions()
+    {
+        $user = Auth::user();
+        
+        $subscriptions = Subscription::where('user_id', $user)->paginate(10);
+
+        return $subscriptions;
+    }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\SubscriptionCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($subscription_id, SubscriptionCreateRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $subscription = Subscription::create([
+
+            'encryption'                => rand(1000000000, 9999999999),
+            'posts_total_count'         => Subscription::find($subscription_id)->plan->posts_total_count,
+            'posts_used_count'          => null,
+            'remains'                   => null,
+            'started_at'                => now()->timestamp,
+            'finished_at'               => now()->timestamp + Subscription::find($subscription_id)->plan->subscription_period,
+            'user_id'                   => Auth::user()->id,
+            'subscription_plan_id'      => Subscription::find($subscription_id)->plan->id,
+            'subscription_status_id'    => SubscriptionStatus::where('name', 'unpaid')->first('id')->id,
+
+        ]);
+
+        $subscription->save();
+
+        return $subscription;
     }
 
     /**
@@ -36,19 +88,85 @@ class SubscriptionController extends Controller
      */
     public function show(Subscription $subscription)
     {
-        //
+        $subscription = Subscription::find($subscription);
+
+        return $subscription;
     }
+
+
+        /**
+     * Display the specified subscription of CONCRETE user
+     *
+     * @param  \App\Models\Subscription  $subscription
+     * @return \Illuminate\Http\Response
+     */
+    public function userSubscriptionShow($user, Subscription $subscription)
+    {
+        $subscription = Subscription::where('user_id', $user)->find($subscription);
+
+        return $subscription;
+    }
+
+
+    /**
+     * Display the specified subscription of currently authenticated user
+     *
+     * @param  \App\Models\Subscription  $subscription
+     * @return \Illuminate\Http\Response
+     */
+    public function currentUserSubscriptionShow(Subscription $subscription)
+    {
+
+        $user = Auth::user();
+
+        $subscription = Subscription::where('user_id', $user)->find($subscription);
+
+        return $subscription;
+    }
+
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\SubscriptionUpdateRequest  $request
      * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subscription $subscription)
+    public function update(SubscriptionUpdateRequest $request, Subscription $subscription)
     {
-        //
+        $data = $request->validate();
+
+        $subscription->encryption = $data['encryption'];
+        $subscription->posts_total_count = $data['posts_total_count'];
+        $subscription->posts_used_count = $data['posts_used_count'];
+        $subscription->started_at = $data['started_at'];
+        $subscription->finished_at = $data['finished_at'];
+        $subscription->user_id = $data['user_id'];
+        $subscription->subscription_plan_id = $data['subscription_plan_id'];
+        $subscription->subscription_status_id = $data['subscription_status_id'];
+
+        $subscription->save();
+
+        return $subscription;
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\SubscriptionUpdateRequest  $request
+     * @param  \App\Models\Subscription  $subscription
+     * @return \Illuminate\Http\Response
+     */
+    public function updateSubscriptionStatus(SubscriptionUpdateRequest $request, Subscription $subscription)
+    {
+        $data = $request->validate();
+
+        $subscription->subscription_status_id = $data['subscription_status_id'];
+
+        $subscription->save();
+
+        return $subscription;
     }
 
     /**
@@ -59,6 +177,8 @@ class SubscriptionController extends Controller
      */
     public function destroy(Subscription $subscription)
     {
-        //
+        $subscription = Subscription::find($subscription);
+
+        return $subscription->delete();
     }
 }

@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('encryption')
                     ->unique();
+            $table->double('amount', 8, 2, true)->nullable();
             $table->foreignId('user_id')
                     ->constrained()
                     ->cascadeOnUpdate()

@@ -23,8 +23,6 @@ class ImageSeeder extends Seeder
 
         foreach ($adminProfiles as $profile) {
             Image::factory()->create([
-                'url' => $this->faker->imageUrl(400,400),
-                'description' => $this->faker->sentence(3),
                 'imageable_id' => $profile->id,
                 'imageable_type' => 'admin-profile',
             ]);
@@ -36,8 +34,6 @@ class ImageSeeder extends Seeder
         
         foreach ($userProfiles as $profile) {
             Image::factory()->create([
-                'url' => $this->faker->imageUrl(400,400),
-                'description' => $this->faker->sentence(3),
                 'imageable_id' => $profile->id,
                 'imageable_type' => 'user-profile',
             ]);
@@ -48,8 +44,6 @@ class ImageSeeder extends Seeder
         
         foreach ($posts as $post) {
             Image::factory()->create([
-                'url' => $this->faker->imageUrl(400,400),
-                'description' => $this->faker->sentence(3),
                 'imageable_id' => $post->id,
                 'imageable_type' => 'post',
             ]);

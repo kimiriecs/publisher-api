@@ -1,28 +1,19 @@
 <?php
 
-namespace Modules\Users\Repositories;
+namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Collection;
-use Modules\Categories\Models\Category;
-
+use App\Models\Role;
+use App\Models\User;
 interface UserRepositoryInterface {
 
-  public function getUsers(Category $subCategory=null);
+  public function getAllUsers();
 
-  public function getter(Category $subCategory):Collection;
+  public function getAllActiveUsers();
 
-  public function getColumns():array;
+  public function getAllActiveUsersDescending();
 
-  public function getAllUsers():Collection;
-
-  public function getAdministrators():Collection;
-
-  public function getTrainers():Collection;
-
-  public function getTrainees():Collection;
-
-  public function getFolowers():Collection;
-
-  public function getAllCategories():Collection;
+  public function getAllUsersByRole(Role $role);
+  
+  public function getActiveUsersByRole(Role $role);
     
 }

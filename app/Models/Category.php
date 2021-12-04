@@ -44,4 +44,15 @@ class Category extends Model
     {
         return $this->hasMany(Category::class);
     }
+
+
+    /**
+     * Get posts that belong to the current category
+     *
+     * @return void
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

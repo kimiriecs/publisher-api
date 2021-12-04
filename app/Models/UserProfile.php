@@ -45,6 +45,6 @@ class UserProfile extends Model
      */
     public function image()
     {
-        return $this->morphOne(Image::class, 'image');
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

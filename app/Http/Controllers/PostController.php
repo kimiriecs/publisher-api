@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\PostRepositoryInterface;
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    protected $repository;
+
+    public function __construct(PostRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +25,32 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = $this->repository->getAllPublishedPostsDescending();
+
+        return $posts;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PostCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostCreateRequest $request)
     {
-        //
+        $data = $request->validate();
+
+        $post = Post::create([
+            'title'             => $data['title'],
+            'body'              => $data['body'],
+            'user_id'           => $data['user_id'],
+            'category_id'       => $data['category_id'],
+            'post_status_id'    => $data['post_status_id'],
+        ]);
+
+        $post->save();
+
+        return $post;
     }
 
     /**
@@ -36,19 +61,50 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post = Post::find($post);
+
+        return $post;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \PostCreateRequest  $request
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostUpdateRequest $request, Post $post)
     {
-        //
+        $data = $request->validate();
+
+        $post->title = $data['title'];
+        $post->body = $data['body'];
+        $post->user_id = $data['user_id'];
+        $post->category_id = $data['category_id'];
+        $post->post_status_id = $data['post_status_id'];
+
+        $post->save();
+
+        return $post;
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \PostCreateRequest  $request
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePostStatus(PostUpdateRequest $request, Post $post)
+    {
+        $data = $request->validate();
+
+        $post->post_status_id = $data['post_status_id'];
+
+        $post->save();
+
+        return $post;
     }
 
     /**
@@ -59,6 +115,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post = Post::find($post);
+
+        return $post->delete();
     }
 }

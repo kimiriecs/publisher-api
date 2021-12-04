@@ -15,7 +15,8 @@ trait HasRole
     /**
      * Check if the user has certain role
      *
-     * @param Role $role
+     * @param \App\Models\Role $role
+     * 
      * @return boolean
      */
     public function hasRole(Role $role)
@@ -27,8 +28,9 @@ trait HasRole
     /**
      * Get the user by certain role
      *
-     * @param Role $role
-     * @return User $user
+     * @param \App\Models\Role $role
+     * 
+     * @return \App\Models\User $user
      */
     public static function findByRole(Role $role)
     {
@@ -41,7 +43,8 @@ trait HasRole
     /**
      * Check if the user has 'owner' role
      *
-     * @param Role $role
+     * @param \App\Models\Role $role
+     * 
      * @return boolean
      */
     public function isOwner()
@@ -57,7 +60,8 @@ trait HasRole
     /**
      * Check if the user has 'admin' role
      *
-     * @param Role $role
+     * @param \App\Models\Role $role
+     * 
      * @return boolean
      */
     public function isAdmin()
@@ -67,38 +71,6 @@ trait HasRole
         $isAdmin = $this->roles()->get()->contains($role);
 
         return $isAdmin;
-    }
-
-
-    /**
-     * Check if the user has 'trainer' role
-     *
-     * @param Role $role
-     * @return boolean
-     */
-    public function isTrainer()
-    {
-        $role = Role::where('name', 'trainer')->first();
-
-        $isTrainer = $this->roles()->get()->contains($role);
-
-        return $isTrainer;
-    }
-
-
-    /**
-     * Check if the user has 'trainee' role
-     *
-     * @param Role $role
-     * @return boolean
-     */
-    public function isTrainee()
-    {
-        $role = Role::where('name', 'trainee')->first();
-
-        $isTrainee = $this->roles()->get()->contains($role);
-
-        return $isTrainee;
     }
 
 }
