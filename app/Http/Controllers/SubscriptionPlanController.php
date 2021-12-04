@@ -73,7 +73,7 @@ class SubscriptionPlanController extends Controller
             'price'                         => $data['price'],
             'posts_total_count'             => $data['posts_total_count'],
             'subscription_period'           => $data['subscription_period'],
-            'subscription_plan_status_id'   => $data['subscription_plan_status_id'],,
+            'subscription_plan_status_id'   => $data['subscription_plan_status_id'],
         ]);
         
         $subscriptionPlan->save();

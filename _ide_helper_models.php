@@ -14,12 +14,27 @@ namespace App\Models{
 /**
  * App\Models\AdminProfile
  *
+ * @property int $id
+ * @property string $uuid
+ * @property string|null $nikname
+ * @property string|null $phone
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Image|null $image
  * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\AdminProfileFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile newQuery()
  * @method static \Illuminate\Database\Query\Builder|AdminProfile onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile query()
+ * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile whereNikname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdminProfile whereUuid($value)
  * @method static \Illuminate\Database\Query\Builder|AdminProfile withTrashed()
  * @method static \Illuminate\Database\Query\Builder|AdminProfile withoutTrashed()
  */
@@ -41,6 +56,8 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $childrenCategories
  * @property-read int|null $children_categories_count
  * @property-read Category|null $parentCategory
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
+ * @property-read int|null $posts_count
  * @method static \Database\Factories\CategoryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
@@ -62,10 +79,71 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Currency
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $symbol
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Database\Factories\CurrencyFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Currency onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency whereSymbol($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Currency whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Currency withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Currency withoutTrashed()
+ */
+	class Currency extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Image
+ *
+ * @property int $id
+ * @property string $url
+ * @property string|null $description
+ * @property string $imageable_type
+ * @property int $imageable_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $post
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $profile
+ * @method static \Database\Factories\ImageFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Image newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Image newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Image onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Image query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Image whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Image whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Image whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Image whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Image whereImageableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Image whereImageableType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Image whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Image whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|Image withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Image withoutTrashed()
+ */
+	class Image extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Payment
  *
  * @property int $id
  * @property int $encryption
+ * @property float|null $amount
  * @property int $user_id
  * @property int $subscription_id
  * @property int|null $payment_status_id
@@ -80,6 +158,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Query\Builder|Payment onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereEncryption($value)
@@ -99,17 +178,53 @@ namespace App\Models{
  * App\Models\PaymentMethod
  *
  * @property int $id
+ * @property string $name
+ * @property int|null $payment_method_status_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method static \Database\Factories\PaymentMethodFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod newQuery()
+ * @method static \Illuminate\Database\Query\Builder|PaymentMethod onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod query()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod wherePaymentMethodStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|PaymentMethod withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|PaymentMethod withoutTrashed()
  */
 	class PaymentMethod extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\PaymentMethodStatus
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $description
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Database\Factories\PaymentMethodStatusFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus newQuery()
+ * @method static \Illuminate\Database\Query\Builder|PaymentMethodStatus onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|PaymentMethodStatus withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|PaymentMethodStatus withoutTrashed()
+ */
+	class PaymentMethodStatus extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -154,6 +269,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\User $author
  * @property-read \App\Models\Category|null $category
+ * @property-read \App\Models\Image|null $image
  * @property-read \App\Models\PostStatus $status
  * @method static \Database\Factories\PostFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
@@ -262,6 +378,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property int $encryption
+ * @property int|null $posts_total_count
  * @property int|null $posts_used_count
  * @property int|null $day_remains
  * @property string|null $started_at
@@ -289,6 +406,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereEncryption($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereFinishedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription wherePostsTotalCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription wherePostsUsedCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereStartedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereSubscriptionPlanId($value)
@@ -399,21 +517,25 @@ namespace App\Models{
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
+ * @property string|null $slug
  * @property string|null $remember_token
  * @property int|null $user_status_id
+ * @property string $profile_type
+ * @property int $profile_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Payment|null $lastPayment
+ * @property-read \App\Models\Post|null $lastPost
  * @property-read \App\Models\Subscription|null $lastSubscription
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Payment[] $payments
  * @property-read int|null $payments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Payment[] $paymentsThroughSubscriptions
- * @property-read int|null $payments_through_subscriptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription[] $plans
  * @property-read int|null $plans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
+ * @property-read int|null $posts_count
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $profile
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @property-read int|null $roles_count
@@ -434,7 +556,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProfileId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProfileType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUserStatusId($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
@@ -447,12 +572,27 @@ namespace App\Models{
 /**
  * App\Models\UserProfile
  *
+ * @property int $id
+ * @property string $uuid
+ * @property string|null $nikname
+ * @property string|null $phone
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Image|null $image
  * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\UserProfileFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|UserProfile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserProfile newQuery()
  * @method static \Illuminate\Database\Query\Builder|UserProfile onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|UserProfile query()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserProfile whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserProfile whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserProfile whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserProfile whereNikname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserProfile wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserProfile whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserProfile whereUuid($value)
  * @method static \Illuminate\Database\Query\Builder|UserProfile withTrashed()
  * @method static \Illuminate\Database\Query\Builder|UserProfile withoutTrashed()
  */
