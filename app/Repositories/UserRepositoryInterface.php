@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Role;
-use App\Models\User;
 interface UserRepositoryInterface {
 
   public function getAllUsers();

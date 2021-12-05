@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleCreateRequest;
+use App\Http\Requests\RoleUpdateRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -14,18 +16,29 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::all();
+
+        return $roles;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\RoleCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleCreateRequest $request)
     {
-        //
+        $data = $request->validate();
+
+        $role = Role::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+        ]);
+
+        $role->save();
+
+        return $role;
     }
 
     /**
@@ -36,19 +49,30 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        $role = Role::find($role);
+
+        return $role;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\RoleUpdateRequest $request
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(RoleUpdateRequest $request, Role $role)
     {
-        //
+        $data = $request->validate();
+
+        $role = Role::find($role);
+
+        $role->name = $data['name'];
+        $role->name = $data['description'];
+        
+        $role->save();
+
+        return $role;
     }
 
     /**
@@ -59,6 +83,8 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $role = Role::find($role);
+
+        return $role->delete();
     }
 }

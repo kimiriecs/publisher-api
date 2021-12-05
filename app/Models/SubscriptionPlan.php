@@ -37,4 +37,14 @@ class SubscriptionPlan extends Model
         return $this->belongsToMany(User::class, 'subscriptions');
 
     }
+
+    /**
+     * Get status that the current subscription plan belongs to
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function status() 
+    {
+        return $this->belongsTo(SubscriptionPlanStatus::class);
+    }
 }

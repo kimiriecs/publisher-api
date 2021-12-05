@@ -20,4 +20,14 @@ class PaymentMethod extends Model
         'name',
         'payment_method_status_id',
     ];
+
+    /**
+     * Get status that the current payment metods belongs to
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function status() 
+    {
+        return $this->belongsTo(PaymentMethodStatus::class);
+    }
 }
