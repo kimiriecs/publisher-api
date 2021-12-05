@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StatusCreateRequest;
+use App\Http\Requests\StatusUpdateRequest;
 use App\Models\PostStatus;
-use Illuminate\Http\Request;
 
 class PostStatusController extends Controller
 {
@@ -14,18 +15,29 @@ class PostStatusController extends Controller
      */
     public function index()
     {
-        //
+        $postStatuses = PostStatus::all();
+
+        return $postStatuses;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StatusCreateRequest $request)
     {
-        //
+        $input = $request->validated();
+
+        $postStatus = PostStatus::create([
+          'name' => $input['name'],
+          'description' => $input['description'],
+        ]);
+
+        $postStatus->save();
+
+        return $postStatus;
     }
 
     /**
@@ -36,19 +48,30 @@ class PostStatusController extends Controller
      */
     public function show(PostStatus $postStatus)
     {
-        //
+        $postStatus = PostStatus::find($postStatus);
+
+        return $postStatus;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusUpdateRequest  $request
      * @param  \App\Models\PostStatus  $postStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PostStatus $postStatus)
+    public function update(StatusUpdateRequest $request, PostStatus $postStatus)
     {
-        //
+        $data = $request->validated();
+
+        $postStatus = PostStatus::find($postStatus);
+
+        $postStatus->name = $data['name'];
+        $postStatus->description = $data['description'];
+
+        $postStatus->save();
+
+        return $postStatus;
     }
 
     /**
@@ -59,6 +82,8 @@ class PostStatusController extends Controller
      */
     public function destroy(PostStatus $postStatus)
     {
-        //
+        $postStatus = PostStatus::find($postStatus);
+
+        return $postStatus->delete();
     }
 }

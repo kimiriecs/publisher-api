@@ -128,6 +128,8 @@ class PaymentController extends Controller
     {
         $data = $request->validate();
 
+        $payment = Payment::find($payment);
+
         $payment->encryption = $data['encryption'];
         $payment->amount = $data['amount'];
         $payment->user_id = $data['user_id'];

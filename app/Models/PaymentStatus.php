@@ -21,4 +21,14 @@ class PaymentStatus extends Model
         'name',
         'description',
     ];
+
+    /**
+     * Get all payments that belong to status
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

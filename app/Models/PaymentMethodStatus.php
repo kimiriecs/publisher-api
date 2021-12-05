@@ -21,4 +21,15 @@ class PaymentMethodStatus extends Model
         'name',
         'description',
     ];
+
+
+    /**
+     * Get all payment metods that belong to status
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function paymentMethods() 
+    {
+        return $this->hasMany(PaymentMethod::class);
+    }
 }

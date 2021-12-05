@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StatusCreateRequest;
+use App\Http\Requests\StatusUpdateRequest;
 use App\Models\PaymentStatus;
-use Illuminate\Http\Request;
 
 class PaymentStatusController extends Controller
 {
@@ -14,18 +15,29 @@ class PaymentStatusController extends Controller
      */
     public function index()
     {
-        //
+        $paymentStatuses = PaymentStatus::all();
+
+        return $paymentStatuses;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StatusCreateRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $paymentStatuses = PaymentStatus::create([
+          'name' => $data['name'],
+          'description' => $data['description'],
+        ]);
+
+        $paymentStatuses->save();
+
+        return $paymentStatuses;
     }
 
     /**
@@ -36,19 +48,30 @@ class PaymentStatusController extends Controller
      */
     public function show(PaymentStatus $paymentStatus)
     {
-        //
+        $paymentStatus = PaymentStatus::find($paymentStatus);
+
+        return $paymentStatus;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusUpdateRequest  $request
      * @param  \App\Models\PaymentStatus  $paymentStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PaymentStatus $paymentStatus)
+    public function update(StatusUpdateRequest $request, PaymentStatus $paymentStatus)
     {
-        //
+        $data = $request->validated();
+
+        $paymentStatus = PaymentStatus::find($paymentStatus);
+
+        $paymentStatus->name = $data['name'];
+        $paymentStatus->description = $data['description'];
+
+        $paymentStatus->save();
+
+        return $paymentStatus;
     }
 
     /**
@@ -59,6 +82,8 @@ class PaymentStatusController extends Controller
      */
     public function destroy(PaymentStatus $paymentStatus)
     {
-        //
+        $paymentStatus = PaymentStatus::find($paymentStatus);
+
+        return $paymentStatus->delete();
     }
 }

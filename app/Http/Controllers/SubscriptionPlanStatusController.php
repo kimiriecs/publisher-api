@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StatusCreateRequest;
+use App\Http\Requests\StatusUpdateRequest;
 use App\Models\SubscriptionPlanStatus;
-use Illuminate\Http\Request;
 
 class SubscriptionPlanStatusController extends Controller
 {
@@ -14,18 +15,29 @@ class SubscriptionPlanStatusController extends Controller
      */
     public function index()
     {
-        //
+        $subscriptionPlanStatus = SubscriptionPlanStatus::all();
+
+        return $subscriptionPlanStatus;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StatusCreateRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $subscriptionPlanStatus = SubscriptionPlanStatus::create([
+          'name' => $data['name'],
+          'description' => $data['description'],
+        ]);
+
+        $subscriptionPlanStatus->save();
+
+        return $subscriptionPlanStatus;
     }
 
     /**
@@ -36,19 +48,30 @@ class SubscriptionPlanStatusController extends Controller
      */
     public function show(SubscriptionPlanStatus $subscriptionPlanStatus)
     {
-        //
+        $subscriptionPlanStatus = SubscriptionPlanStatus::find($subscriptionPlanStatus);
+
+        return $subscriptionPlanStatus;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusUpdateRequest  $request
      * @param  \App\Models\SubscriptionPlanStatus  $subscriptionPlanStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubscriptionPlanStatus $subscriptionPlanStatus)
+    public function update(StatusUpdateRequest $request, SubscriptionPlanStatus $subscriptionPlanStatus)
     {
-        //
+        $data = $request->validated();
+
+        $subscriptionPlanStatus = SubscriptionPlanStatus::find($subscriptionPlanStatus);
+
+        $subscriptionPlanStatus->name = $data['name'];
+        $subscriptionPlanStatus->description = $data['description'];
+
+        $subscriptionPlanStatus->save();
+
+        return $subscriptionPlanStatus;
     }
 
     /**
@@ -59,6 +82,8 @@ class SubscriptionPlanStatusController extends Controller
      */
     public function destroy(SubscriptionPlanStatus $subscriptionPlanStatus)
     {
-        //
+        $subscriptionPlanStatus = SubscriptionPlanStatus::find($subscriptionPlanStatus);
+
+        return $subscriptionPlanStatus->delete();
     }
 }

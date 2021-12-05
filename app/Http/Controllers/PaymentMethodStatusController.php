@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StatusCreateRequest;
+use App\Http\Requests\StatusUpdateRequest;
 use App\Models\PaymentMethodStatus;
-use Illuminate\Http\Request;
 
 class PaymentMethodStatusController extends Controller
 {
@@ -14,18 +15,29 @@ class PaymentMethodStatusController extends Controller
      */
     public function index()
     {
-        //
+        $paymentMethodStatuses = PaymentMethodStatus::all();
+
+        return $paymentMethodStatuses;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StatusCreateRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $paymentMethodStatus = PaymentMethodStatus::create([
+          'name' => $data['name'],
+          'description' => $data['description'],
+        ]);
+
+        $paymentMethodStatus->save();
+
+        return $paymentMethodStatus;
     }
 
     /**
@@ -36,19 +48,30 @@ class PaymentMethodStatusController extends Controller
      */
     public function show(PaymentMethodStatus $paymentMethodStatus)
     {
-        //
+        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus);
+
+        return $paymentMethodStatus;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusUpdateRequest  $request
      * @param  \App\Models\PaymentMethodStatus  $paymentMethodStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PaymentMethodStatus $paymentMethodStatus)
+    public function update(StatusUpdateRequest $request, PaymentMethodStatus $paymentMethodStatus)
     {
-        //
+        $data = $request->validated();
+
+        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus);
+
+        $paymentMethodStatus->name = $data['name'];
+        $paymentMethodStatus->description = $data['description'];
+
+        $paymentMethodStatus->save();
+
+        return $paymentMethodStatus;
     }
 
     /**
@@ -59,6 +82,8 @@ class PaymentMethodStatusController extends Controller
      */
     public function destroy(PaymentMethodStatus $paymentMethodStatus)
     {
-        //
+        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus);
+
+        return $paymentMethodStatus->delete();
     }
 }

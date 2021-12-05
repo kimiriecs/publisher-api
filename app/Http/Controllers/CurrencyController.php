@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CurrencyCreateRequest;
+use App\Http\Requests\CurrencyUpdateRequest;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 
@@ -14,18 +16,29 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        //
+        $currency = Currency::all();
+
+        return $currency;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CurrencyCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CurrencyCreateRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $currency = Currency::create([
+          'name' => $data['name'],
+          'symbol' => $data['symbol'],
+        ]);
+
+        $currency->save();
+
+        return $currency;
     }
 
     /**
@@ -36,19 +49,30 @@ class CurrencyController extends Controller
      */
     public function show(Currency $currency)
     {
-        //
+        $currency = Currency::find($currency);
+
+        return $currency;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CurrencyUpdateRequest  $request
      * @param  \App\Models\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Currency $currency)
+    public function update(CurrencyUpdateRequest $request, Currency $currency)
     {
-        //
+        $data = $request->validated();
+
+        $currency = Currency::find($currency);
+
+        $currency->name = $data['name'];
+        $currency->symbol = $data['symbol'];
+
+        $currency->save();
+
+        return $currency;
     }
 
     /**

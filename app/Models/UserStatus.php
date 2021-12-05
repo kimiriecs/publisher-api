@@ -21,4 +21,15 @@ class UserStatus extends Model
         'name',
         'description',
     ];
+
+
+    /**
+     * Get all users that belong to status
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users() 
+    {
+        return $this->hasMany(User::class);
+    }
 }

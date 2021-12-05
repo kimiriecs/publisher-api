@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StatusCreateRequest;
+use App\Http\Requests\StatusUpdateRequest;
 use App\Models\SubscriptionStatus;
 use Illuminate\Http\Request;
 
@@ -14,18 +16,29 @@ class SubscriptionStatusController extends Controller
      */
     public function index()
     {
-        //
+        $subscriptionStatus = SubscriptionStatus::all();
+
+        return $subscriptionStatus;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StatusCreateRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $subscriptionStatus = SubscriptionStatus::create([
+          'name' => $data['name'],
+          'description' => $data['description'],
+        ]);
+
+        $subscriptionStatus->save();
+
+        return $subscriptionStatus;
     }
 
     /**
@@ -36,19 +49,30 @@ class SubscriptionStatusController extends Controller
      */
     public function show(SubscriptionStatus $subscriptionStatus)
     {
-        //
+        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus);
+
+        return $subscriptionStatus;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StatusUpdateRequest  $request
      * @param  \App\Models\SubscriptionStatus  $subscriptionStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubscriptionStatus $subscriptionStatus)
+    public function update(StatusUpdateRequest $request, SubscriptionStatus $subscriptionStatus)
     {
-        //
+        $data = $request->validated();
+
+        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus);
+
+        $subscriptionStatus->name = $data['name'];
+        $subscriptionStatus->description = $data['description'];
+
+        $subscriptionStatus->save();
+
+        return $subscriptionStatus;
     }
 
     /**
@@ -59,6 +83,8 @@ class SubscriptionStatusController extends Controller
      */
     public function destroy(SubscriptionStatus $subscriptionStatus)
     {
-        //
+        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus);
+
+        return $subscriptionStatus->delete();
     }
 }

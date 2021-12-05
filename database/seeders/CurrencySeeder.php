@@ -15,11 +15,17 @@ class CurrencySeeder extends Seeder
     public function run()
     {
         $currencies = [
-            'USD' => 'U+0024',
-            'EUR' => 'U+20AC',
-            'UAH' => 'U+20B4',
-            'RUB' => 'U+20BD',
+            'USD' => '&#x0024;',
+            'EUR' => '&#x20AC;',
+            'UAH' => '&#x20B4;',
+            'RUB' => '&#x20BD;',
         ];
+        // $currencies = [
+        //     'USD' => 'U+0024',
+        //     'EUR' => 'U+20AC',
+        //     'UAH' => 'U+20B4',
+        //     'RUB' => 'U+20BD',
+        // ];
 
         foreach ($currencies as $name => $symbol) {
             Currency::factory()->create([

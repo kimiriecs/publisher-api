@@ -21,4 +21,15 @@ class SubscriptionPlanStatus extends Model
         'name',
         'description',
     ];
+
+
+    /**
+     * Get all subscription plans that belong to status
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptionPlans() 
+    {
+        return $this->hasMany(SubscriptionPlan::class);
+    }
 }
