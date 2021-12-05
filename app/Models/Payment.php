@@ -25,6 +25,12 @@ class Payment extends Model
         'payment_status_id',
     ];
     
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['status'];
 
 
     /**
@@ -59,6 +65,6 @@ class Payment extends Model
      */
     public function status()
     {
-        return $this->belongsTo(PaymentStatus::class);
+        return $this->belongsTo(PaymentStatus::class, 'payment_status_id');
     }
 }

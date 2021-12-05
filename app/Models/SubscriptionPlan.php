@@ -25,6 +25,14 @@ class SubscriptionPlan extends Model
         'subscription_plan_status_id',
     ];
 
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['status'];
+
     /**
      * Get the users that the current plan belongs to
      * 
@@ -45,6 +53,6 @@ class SubscriptionPlan extends Model
      */
     public function status() 
     {
-        return $this->belongsTo(SubscriptionPlanStatus::class);
+        return $this->belongsTo(SubscriptionPlanStatus::class, 'subscription_plan_status_id');
     }
 }

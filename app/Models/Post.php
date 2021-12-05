@@ -60,7 +60,7 @@ class Post extends Model
      */
     public function status()
     {
-        return $this->belongsTo(PostStatus::class);
+        return $this->belongsTo(PostStatus::class, 'post_status_id');
     }
 
     /**

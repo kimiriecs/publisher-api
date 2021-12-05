@@ -24,6 +24,14 @@ class Category extends Model
         'parent_category_id',
     ];
 
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['childrenCategories'];
+
     /**
      * Get parent category of current category
      *

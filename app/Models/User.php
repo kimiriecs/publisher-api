@@ -36,7 +36,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $with = ['roles', 'status'];
+    protected $with = ['roles', 'status', 'profile'];
 
 
     /**
@@ -86,7 +86,7 @@ class User extends Authenticatable
      */
     public function status()
     {
-        return $this->belongsTo(UserStatus::class, 'statusable');
+        return $this->belongsTo(UserStatus::class, 'user_status_id');
     }
 
 

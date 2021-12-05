@@ -28,6 +28,14 @@ class Subscription extends Model
         'subscription_status_id',
     ];
 
+
+    /**
+    * The relationships that should always be loaded.
+    *
+    * @var array
+    */
+    protected $with = ['status'];
+
     /**
      * Get the user that current subsription belongs to
      * 
@@ -67,7 +75,7 @@ class Subscription extends Model
      */
     public function status()
     {
-        return $this->belongsTo(SubscriptionStatus::class);
+        return $this->belongsTo(SubscriptionStatus::class, 'subscription_status_id');
     }
 
 

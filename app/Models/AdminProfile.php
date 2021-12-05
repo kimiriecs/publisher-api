@@ -30,7 +30,7 @@ class AdminProfile extends Model
      *
      * @var array
      */
-    protected $with = ['user', 'image'];
+    protected $with = ['image'];
 
 
     /**

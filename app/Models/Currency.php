@@ -22,5 +22,12 @@ class Currency extends Model
         'symbol',
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [];
+
     
 }

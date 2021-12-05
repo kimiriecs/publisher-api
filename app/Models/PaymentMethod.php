@@ -21,6 +21,14 @@ class PaymentMethod extends Model
         'payment_method_status_id',
     ];
 
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['status'];
+
     /**
      * Get status that the current payment metods belongs to
      *
@@ -28,6 +36,6 @@ class PaymentMethod extends Model
      */
     public function status() 
     {
-        return $this->belongsTo(PaymentMethodStatus::class);
+        return $this->belongsTo(PaymentMethodStatus::class, 'payment_method_status_id');
     }
 }
