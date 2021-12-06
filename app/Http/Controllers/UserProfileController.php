@@ -29,7 +29,7 @@ class UserProfileController extends Controller
      */
     public function store(UserProfileCreateRequest $request)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $userProfile = UserProfile::create([
             'uuid'      => (string) Str::uuid(),
@@ -62,7 +62,7 @@ class UserProfileController extends Controller
      */
     public function update(UserProfileUpdateRequest $request, UserProfile $userProfile)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $userProfile = UserProfile::find($userProfile->id);
 

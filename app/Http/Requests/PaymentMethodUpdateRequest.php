@@ -25,7 +25,7 @@ class PaymentMethodUpdateRequest extends FormRequest
     {
         return [
             'name'                      => 'required|string|min:3|max:255',
-            'payment_method_status_id'  => 'required|exists:payment_method_statuses',
+            'payment_method_status_id'  => 'required|exists:payment_methods',
         ];
     }
 

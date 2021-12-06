@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryCreateRequest $request)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $category = Category::create([
             'name'                  => $data['name'],
@@ -65,7 +65,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $category = Category::find($category->id);
 

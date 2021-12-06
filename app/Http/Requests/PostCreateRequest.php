@@ -26,9 +26,7 @@ class PostCreateRequest extends FormRequest
         return [
             'title'                 => 'required|string',
             'body'                  => 'required|string',
-            'user_id'               => 'required|exists:users',
-            'category_id'           => 'required|exists:categories',
-            'post_status_id'        => 'required|exists:post_statuses',
+            'category_id'           => 'required|exists:posts',
         ];
     }
 
@@ -42,9 +40,7 @@ class PostCreateRequest extends FormRequest
         return [
             'title'                 => 'title INVALID',
             'body'                  => 'body INVALID',
-            'user_id'               => 'user_id INVALID',
             'category_id'           => 'category_id INVALID',
-            'post_status_id'        => 'post_status_id INVALID',
         ];
     }
 

@@ -28,7 +28,7 @@ class SubscriptionPlanStatusController extends Controller
      */
     public function store(StatusCreateRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->validatedd();
 
         $subscriptionPlanStatus = SubscriptionPlanStatus::create([
           'name' => $data['name'],
@@ -62,7 +62,7 @@ class SubscriptionPlanStatusController extends Controller
      */
     public function update(StatusUpdateRequest $request, SubscriptionPlanStatus $subscriptionPlanStatus)
     {
-        $data = $request->validated();
+        $data = $request->validatedd();
 
         $subscriptionPlanStatus = SubscriptionPlanStatus::find($subscriptionPlanStatus->id);
 

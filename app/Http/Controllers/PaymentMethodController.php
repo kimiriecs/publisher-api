@@ -29,7 +29,7 @@ class PaymentMethodController extends Controller
      */
     public function store(PaymentMethodCreateRequest $request)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $paymentMethod = PaymentMethod::create([
             'name'                      => $data['name'],
@@ -63,7 +63,7 @@ class PaymentMethodController extends Controller
      */
     public function update(PaymentMethodUpdateRequest $request, PaymentMethod $paymentMethod)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $paymentMethod = PaymentMethod::find($paymentMethod->id);
 

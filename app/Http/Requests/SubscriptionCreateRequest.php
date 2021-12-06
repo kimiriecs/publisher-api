@@ -29,9 +29,9 @@ class SubscriptionCreateRequest extends FormRequest
             'remains'                   => 'required|numeric|gte:0',
             'started_at'                => 'required|date',
             'finished_at'               => 'required|date',
-            'user_id'                   => 'required|exists:users',
-            'subscription_plan_id'      => 'required|exists:subscription_plans',
-            'subscription_status_id'    => 'required|exists:subscription_statuses',
+            'user_id'                   => 'required|exists:subscriptions',
+            'subscription_plan_id'      => 'required|exists:subscriptions',
+            'subscription_status_id'    => 'required|exists:subscriptions',
         ];
     }
 

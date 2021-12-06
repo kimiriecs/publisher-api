@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $input = $request->validated();
+        $input = $request->validatedd();
 
         $user = User::create([
           'name' => $input['name'],
@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $user)
     {
-        $input = $request->validated();
+        $input = $request->validatedd();
 
         $user = User::find($user->id);
 

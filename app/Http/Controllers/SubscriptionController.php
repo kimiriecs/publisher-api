@@ -61,7 +61,7 @@ class SubscriptionController extends Controller
      */
     public function store($subscription_id, SubscriptionCreateRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->validatedd();
 
         $subscription = Subscription::create([
 
@@ -135,7 +135,7 @@ class SubscriptionController extends Controller
      */
     public function update(SubscriptionUpdateRequest $request, Subscription $subscription)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $subscription = Subscription::find($subscription->id);
 
@@ -163,7 +163,7 @@ class SubscriptionController extends Controller
      */
     public function updateSubscriptionStatus(SubscriptionUpdateRequest $request, Subscription $subscription)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $subscription = Subscription::find($subscription->id);
 

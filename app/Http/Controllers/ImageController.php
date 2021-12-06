@@ -28,7 +28,7 @@ class ImageController extends Controller
      */
     public function store(ImageCreateRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->validatedd();
 
         $image = Image::create([
             'url'               => $data['url'],
@@ -64,7 +64,7 @@ class ImageController extends Controller
      */
     public function update(ImageUpdateRequest $request, Image $image)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $image = Image::find($image->id);
 

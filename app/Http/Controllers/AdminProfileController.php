@@ -31,7 +31,7 @@ class AdminProfileController extends Controller
      */
     public function store(AdminProfileCreateRequest $request)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $adminProfile = AdminProfile::create([
             'uuid'      => (string) Str::uuid(),
@@ -66,7 +66,7 @@ class AdminProfileController extends Controller
      */
     public function update(AdminProfileUpdateRequest $request, AdminProfile $adminProfile)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $adminProfile = AdminProfile::find($adminProfile->id);
 

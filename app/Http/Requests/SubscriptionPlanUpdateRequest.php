@@ -28,7 +28,7 @@ class SubscriptionPlanUpdateRequest extends FormRequest
             'price'                          => 'required|numeric|gte:0',
             'posts_total_count'              => 'required|numeric|gte:0',
             'subscription_period'            => 'required|date',
-            'subscription_plan_status_id'    => 'required|exists:subscription_plan_statuses',
+            'subscription_plan_status_id'    => 'required|exists:subscription_plans',
         ];
     }
 

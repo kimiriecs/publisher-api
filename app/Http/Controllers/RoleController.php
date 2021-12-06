@@ -29,7 +29,7 @@ class RoleController extends Controller
      */
     public function store(RoleCreateRequest $request)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $role = Role::create([
             'name'          => $data['name'],
@@ -63,7 +63,7 @@ class RoleController extends Controller
      */
     public function update(RoleUpdateRequest $request, Role $role)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $role = Role::find($role->id);
 

@@ -6,6 +6,8 @@ use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
+use App\Models\PostStatus;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -38,14 +40,14 @@ class PostController extends Controller
      */
     public function store(PostCreateRequest $request)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $post = Post::create([
             'title'             => $data['title'],
             'body'              => $data['body'],
-            'user_id'           => $data['user_id'],
+            'user_id'           => Auth::user()->id,
             'category_id'       => $data['category_id'],
-            'post_status_id'    => $data['post_status_id'],
+            'post_status_id'    => PostStatus::where('name', 'draft')->first('id')->id,
         ]);
 
         $post->save();
@@ -75,7 +77,7 @@ class PostController extends Controller
      */
     public function update(PostUpdateRequest $request, Post $post)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $post->title = $data['title'];
         $post->body = $data['body'];
@@ -98,7 +100,7 @@ class PostController extends Controller
      */
     public function updatePostStatus(PostUpdateRequest $request, Post $post)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         $post->post_status_id = $data['post_status_id'];
 
