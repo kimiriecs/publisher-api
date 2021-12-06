@@ -47,7 +47,8 @@ Route::middleware('auth:sanctum')
 #	Auth Routes END
 #--------------------------------------------------------------------------
 
-Route::middleware(['auth:sanctum', 'role:admin'])
+Route::middleware(['auth:sanctum'])  
+// Route::middleware(['auth:sanctum', 'is.admin:admin']) //? 'is.admin:admin'... NEED to be implemented
 		->prefix('admin')->as('admin.')->group(function() {
 
 #--------------------------------------------------------------------------

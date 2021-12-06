@@ -10,10 +10,8 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PaymentController;
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\PostStatusController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +53,8 @@ Route::middleware(['auth:sanctum'])
 
 #--------------------------------------------------------------------------
 #	Subscription Routes
-	Route::middleware(['is.author:author', 'is.owner:owner']) //? 'is.owner:owner'... NEED to be implemented
+	Route::middleware([])
+	// Route::middleware(['is.author:author', 'is.owner:owner']) //? 'is.owner:owner'... NEED to be implemented
 			->group(function() {
 		Route::apiResource('subscripitions', SubscriptionController::class)
 				->names(['index' => 'all'])
@@ -67,7 +66,8 @@ Route::middleware(['auth:sanctum'])
 
 #--------------------------------------------------------------------------
 #	Payment Routes
-	Route::middleware(['is.author:author', 'is.owner:owner', 'has.active.subscription:active']) //? 'is.owner:owner'... NEED to be implemented
+	Route::middleware([])
+	// Route::middleware(['is.author:author', 'is.owner:owner', 'has.active.subscription:active']) //? 'is.owner:owner'... NEED to be implemented
 					->group(function() {
 		Route::apiResource('payments', PaymentController::class)
 				->names(['index' => 'all'])
@@ -100,7 +100,8 @@ Route::middleware(['auth:sanctum'])
 
 #--------------------------------------------------------------------------
 #	Post Routes
-	Route::middleware(['is.author:author', 'is.owner:owner']) //? 'is:owner' for 'delete' and 'update' routes
+	Route::middleware([])
+	// Route::middleware(['is.author:author', 'is.owner:owner']) //? 'is:owner' for 'delete' and 'update' routes
 			->group(function() {
 		Route::apiResource('posts', PostController::class)
 				->names(['index' => 'all']);
@@ -111,10 +112,12 @@ Route::middleware(['auth:sanctum'])
 
 #--------------------------------------------------------------------------
 #	Image Routes
-
-	Route::apiResource('images', ImageController::class) //? 'is:owner' for 'delete' and 'update' routes
-			->names(['index' => 'all']);
-
+	Route::middleware([])
+	// Route::middleware(['is.author:author', 'is.owner:owner']) //? 'is:owner' for 'delete' and 'update' routes
+			->group(function() {
+		Route::apiResource('images', ImageController::class)
+				->names(['index' => 'all']);
+	});
 #	Image Routes END
 #--------------------------------------------------------------------------
 
