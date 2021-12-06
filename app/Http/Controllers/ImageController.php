@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImageCreateRequest;
+use App\Http\Requests\ImageUpdateRequest;
 use App\Models\Image;
-use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
@@ -14,41 +15,65 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        $images = Image::paginate(15);
+
+        return $images;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ImageCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ImageCreateRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $image = Image::create([
+            'url'               => $data['url'],
+            'description'       => $data['description'],
+            'imageable_id'      => $data['imageable_id'],
+            'imageable_type'    => $data['imageable_type'],
+        ]);
+        
+        $image->save();
+
+        return $image;
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource
      *
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
     public function show(Image $image)
     {
-        //
+        $image = Image::find($image->id);
+
+        return $image;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ImageUpdateRequest  $request
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Image $image)
+    public function update(ImageUpdateRequest $request, Image $image)
     {
-        //
+        $data = $request->validate();
+
+        $image = Image::find($image->id);
+
+        $image->url          = $data['url'];
+        $image->description  = $data['description'];
+
+        $image->save();
+
+        return $image;
     }
 
     /**
@@ -59,6 +84,10 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
-        //
+        $image = Image::find($image->id);
+
+        $image->delete();
+
+        return response('resource deleted successfully', 200);
     }
 }

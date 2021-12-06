@@ -49,7 +49,7 @@ class SubscriptionStatusController extends Controller
      */
     public function show(SubscriptionStatus $subscriptionStatus)
     {
-        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus);
+        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus->id);
 
         return $subscriptionStatus;
     }
@@ -65,7 +65,7 @@ class SubscriptionStatusController extends Controller
     {
         $data = $request->validated();
 
-        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus);
+        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus->id);
 
         $subscriptionStatus->name = $data['name'];
         $subscriptionStatus->description = $data['description'];
@@ -83,8 +83,10 @@ class SubscriptionStatusController extends Controller
      */
     public function destroy(SubscriptionStatus $subscriptionStatus)
     {
-        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus);
+        $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus->id);
 
-        return $subscriptionStatus->delete();
+        $subscriptionStatus->delete();
+        
+        return  response('resource updated successfully', 200);
     }
 }

@@ -52,7 +52,7 @@ class SubscriptionPlanController extends Controller
      */
     public function show(SubscriptionPlan $subscriptionPlan)
     {
-        $subscriptionPlan = SubscriptionPlan::find($subscriptionPlan);
+        $subscriptionPlan = SubscriptionPlan::find($subscriptionPlan->id);
 
         return $subscriptionPlan;
     }
@@ -68,13 +68,13 @@ class SubscriptionPlanController extends Controller
     {
         $data = $request->validated();
 
-        $subscriptionPlan = SubscriptionPlan::create([
-            'name'                          => $data['name'],
-            'price'                         => $data['price'],
-            'posts_total_count'             => $data['posts_total_count'],
-            'subscription_period'           => $data['subscription_period'],
-            'subscription_plan_status_id'   => $data['subscription_plan_status_id'],
-        ]);
+        $subscriptionPlan = SubscriptionPlan::find($subscriptionPlan->id);
+        
+        $subscriptionPlan->name                         = $data['name'];
+        $subscriptionPlan->price                        = $data['price'];
+        $subscriptionPlan->posts_total_count            = $data['posts_total_count'];
+        $subscriptionPlan->subscription_period          = $data['subscription_period'];
+        $subscriptionPlan->subscription_plan_status_id  = $data['subscription_plan_status_id'];
         
         $subscriptionPlan->save();
 
@@ -93,6 +93,8 @@ class SubscriptionPlanController extends Controller
     {
         $data = $request->validated();
 
+        $subscriptionPlan = SubscriptionPlan::find($subscriptionPlan->id);
+
         $subscriptionPlan->subscription_plan_status_id = $data['subscription_plan_status_id'];
         
         $subscriptionPlan->save();
@@ -108,8 +110,10 @@ class SubscriptionPlanController extends Controller
      */
     public function destroy(SubscriptionPlan $subscriptionPlan)
     {
-        $subscriptionPlan = SubscriptionPlan::find($subscriptionPlan);
+        $subscriptionPlan = SubscriptionPlan::find($subscriptionPlan->id);
         
-        return $subscriptionPlan->delete();
+        $subscriptionPlan->delete();
+
+        return  response('resource deleted successfully', 200);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\PostRepositoryInterface;
 use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
+use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 
 class PostController extends Controller

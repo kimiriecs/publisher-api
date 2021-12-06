@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             } else {
 
                 User::factory()->create([
-                    'profile_id' => $i+1,
+                    'profile_id' => $i+1-$administrationCount,
                     'profile_type' => 'user-profile',
                 ]);
                 

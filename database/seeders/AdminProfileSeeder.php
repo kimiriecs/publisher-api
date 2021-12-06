@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\AdminProfile;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AdminProfileSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class AdminProfileSeeder extends Seeder
      */
     public function run()
     {
-        AdminProfile::factory(4)->create();
+        $adminsCount = DB::table('role_user')->whereIn('role_id', [1,2])->count();
+
+        AdminProfile::factory($adminsCount)->create();
     }
 }

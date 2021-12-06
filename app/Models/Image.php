@@ -12,11 +12,11 @@ class Image extends Model
     use SoftDeletes;
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that are mass assignable
      *
      * @var array
      */
-    protected $hidden = [
+    protected $fillable = [
         'url',
         'description',
         'imageable_id',
@@ -33,19 +33,11 @@ class Image extends Model
 
 
     /**
-     * Get the parent profile model (AdminProfile or UserProfile).
+     * Get the parent profile model (AdminProfile, UserProfile, Post).
      */
-    public function profile()
+    public function imageable()
     {
         return $this->morphTo();
     }
 
-
-    /**
-     * Get the parent profile model (Post).
-     */
-    public function post()
-    {
-        return $this->morphTo();
-    }
 }

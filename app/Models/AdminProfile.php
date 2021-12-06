@@ -13,11 +13,11 @@ class AdminProfile extends Model
 
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $hidden = [
+    protected $fillable = [
         'uuid',
         'nikname',
         'phone',
@@ -30,7 +30,7 @@ class AdminProfile extends Model
      *
      * @var array
      */
-    protected $with = ['image'];
+    protected $with = ['images'];
 
 
     /**
@@ -45,8 +45,8 @@ class AdminProfile extends Model
     /**
      * Get the AdminProfile's image model
      */
-    public function image()
+    public function images()
     {
-        return $this->morphOne(Image::class, 'imageable');
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

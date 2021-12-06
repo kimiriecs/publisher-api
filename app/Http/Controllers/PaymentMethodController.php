@@ -49,7 +49,7 @@ class PaymentMethodController extends Controller
      */
     public function show(PaymentMethod $paymentMethod)
     {
-        $paymentMethod = PaymentMethod::find($paymentMethod);
+        $paymentMethod = PaymentMethod::find($paymentMethod->id);
 
         return $paymentMethod;
     }
@@ -65,7 +65,7 @@ class PaymentMethodController extends Controller
     {
         $data = $request->validate();
 
-        $paymentMethod = PaymentMethod::find($paymentMethod);
+        $paymentMethod = PaymentMethod::find($paymentMethod->id);
 
         $paymentMethod->name = $data['name'];
         $paymentMethod->payment_method_status_id = $data['payment_method_status_id'];
@@ -83,8 +83,10 @@ class PaymentMethodController extends Controller
      */
     public function destroy(PaymentMethod $paymentMethod)
     {
-        $paymentMethod = PaymentMethod::find($paymentMethod);
+        $paymentMethod = PaymentMethod::find($paymentMethod->id);
 
-        return $paymentMethod->delete();
+        $paymentMethod->delete();
+
+        return response('resource updated successfully', 200);
     }
 }

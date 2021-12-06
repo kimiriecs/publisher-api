@@ -48,7 +48,7 @@ class UserProfileController extends Controller
      */
     public function show(UserProfile $userProfile)
     {
-        $userProfile = UserProfile::find($userProfile);
+        $userProfile = UserProfile::find($userProfile->id);
 
         return $userProfile;
     }
@@ -64,7 +64,7 @@ class UserProfileController extends Controller
     {
         $data = $request->validate();
 
-        $userProfile = UserProfile::find($userProfile);
+        $userProfile = UserProfile::find($userProfile->id);
 
         $userProfile->uuid = (string) Str::uuid();
         $userProfile->nikname = $data['nikname'];
@@ -83,8 +83,10 @@ class UserProfileController extends Controller
      */
     public function destroy(UserProfile $userProfile)
     {
-        $userProfile = UserProfile::find($userProfile);
+        $userProfile = UserProfile::find($userProfile->id);
 
-        return $userProfile->delete();
+        $userProfile->delete();
+
+        return response('resource updated successfully', 200);
     }
 }

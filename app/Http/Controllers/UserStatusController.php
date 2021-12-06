@@ -48,7 +48,7 @@ class UserStatusController extends Controller
      */
     public function show(UserStatus $userStatus)
     {
-        $userStatus = UserStatus::find($userStatus);
+        $userStatus = UserStatus::find($userStatus->id);
 
         return $userStatus;
     }
@@ -64,7 +64,7 @@ class UserStatusController extends Controller
     {
         $data = $request->validated();
 
-        $userStatus = UserStatus::find($userStatus);
+        $userStatus = UserStatus::find($userStatus->id);
 
         $userStatus->name = $data['name'];
         $userStatus->description = $data['description'];
@@ -82,8 +82,10 @@ class UserStatusController extends Controller
      */
     public function destroy(UserStatus $userStatus)
     {
-        $userStatus = UserStatus::find($userStatus);
+        $userStatus = UserStatus::find($userStatus->id);
 
-        return $userStatus->delete();
+        $userStatus->delete();
+
+        return response('resource updated successfully', 200);
     }
 }

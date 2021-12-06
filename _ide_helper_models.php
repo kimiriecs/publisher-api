@@ -150,7 +150,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\PaymentStatus $status
+ * @property-read \App\Models\PaymentStatus|null $status
  * @property-read \App\Models\Subscription $subscription
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\PaymentFactory factory(...$parameters)
@@ -183,6 +183,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\PaymentMethodStatus|null $status
  * @method static \Database\Factories\PaymentMethodFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod newQuery()
@@ -210,6 +211,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PaymentMethod[] $paymentMethods
+ * @property-read int|null $payment_methods_count
  * @method static \Database\Factories\PaymentMethodStatusFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethodStatus newQuery()
@@ -237,6 +240,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Payment[] $payments
+ * @property-read int|null $payments_count
  * @method static \Database\Factories\PaymentStatusFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentStatus newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentStatus newQuery()
@@ -270,7 +275,7 @@ namespace App\Models{
  * @property-read \App\Models\User $author
  * @property-read \App\Models\Category|null $category
  * @property-read \App\Models\Image|null $image
- * @property-read \App\Models\PostStatus $status
+ * @property-read \App\Models\PostStatus|null $status
  * @method static \Database\Factories\PostFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
@@ -393,7 +398,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Payment[] $payments
  * @property-read int|null $payments_count
  * @property-read \App\Models\SubscriptionPlan $plan
- * @property-read \App\Models\SubscriptionStatus $status
+ * @property-read \App\Models\SubscriptionStatus|null $status
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\SubscriptionFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription newModelQuery()
@@ -432,6 +437,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\SubscriptionPlanStatus|null $status
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
  * @method static \Database\Factories\SubscriptionPlanFactory factory(...$parameters)
@@ -464,6 +470,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SubscriptionPlan[] $subscriptionPlans
+ * @property-read int|null $subscription_plans_count
  * @method static \Database\Factories\SubscriptionPlanStatusFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionPlanStatus newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionPlanStatus newQuery()
@@ -491,6 +499,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription[] $subscriptions
+ * @property-read int|null $subscriptions_count
  * @method static \Database\Factories\SubscriptionStatusFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionStatus newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionStatus newQuery()
@@ -539,7 +549,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $profile
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @property-read int|null $roles_count
- * @property-read \App\Models\UserStatus $status
+ * @property-read \App\Models\UserStatus|null $status
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription[] $subscriptions
  * @property-read int|null $subscriptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
@@ -609,6 +619,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  * @method static \Database\Factories\UserStatusFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|UserStatus newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserStatus newQuery()

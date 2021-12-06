@@ -32,8 +32,8 @@ class RoleController extends Controller
         $data = $request->validate();
 
         $role = Role::create([
-            'name' => $data['name'],
-            'description' => $data['description'],
+            'name'          => $data['name'],
+            'description'   => $data['description'],
         ]);
 
         $role->save();
@@ -49,7 +49,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $role = Role::find($role);
+        $role = Role::find($role->id);
 
         return $role;
     }
@@ -65,7 +65,7 @@ class RoleController extends Controller
     {
         $data = $request->validate();
 
-        $role = Role::find($role);
+        $role = Role::find($role->id);
 
         $role->name = $data['name'];
         $role->name = $data['description'];
@@ -83,8 +83,10 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role = Role::find($role);
+        $role = Role::find($role->id);
 
-        return $role->delete();
+        $role->delete();
+        
+        return response('resource deleted successfully', 200);
     }
 }

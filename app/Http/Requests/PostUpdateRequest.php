@@ -26,9 +26,9 @@ class PostUpdateRequest extends FormRequest
         return [
             'title'                 => 'required|string',
             'body'                  => 'required|string',
-            'user_id'               => 'required|exists:users|unique:users',
-            'category_id'           => 'required|exists:categories|unique:categories',
-            'post_status_id'        => 'required|exists:post_statuses|unique:post_statuses',
+            'user_id'               => 'required|exists:users',
+            'category_id'           => 'required|exists:categories',
+            'post_status_id'        => 'required|exists:post_statuses',
         ];
     }
 

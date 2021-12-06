@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepositoryInterface;
 use App\Http\Requests\UserRequest;
+use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
@@ -56,9 +56,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($user)
+    public function show(User $user)
     {
-        $user = User::where('id', $user)->get();
+        $user = User::find($user->id);
 
         return $user;
     }
@@ -74,7 +74,7 @@ class UserController extends Controller
     {
         $input = $request->validated();
 
-        $user = User::find($user);
+        $user = User::find($user->id);
 
         $user->name = $input['name'];
         $user->email = $input['email'];
@@ -93,8 +93,10 @@ class UserController extends Controller
      */
     public function destroy($user)
     {
-        $user = User::find($user);
+        $user = User::find($user->id);
 
-        return $user->delete();
+        $user->delete();
+
+        return response('resource updated successfully', 200);
     }
 }

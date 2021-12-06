@@ -12,11 +12,11 @@ class PaymentMethod extends Model
     use SoftDeletes;
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that are mass assignable
      *
      * @var array
      */
-    protected $hidden = [
+    protected $fillable = [
         'name',
         'payment_method_status_id',
     ];

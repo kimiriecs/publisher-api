@@ -31,7 +31,7 @@ class PaymentMethodStatusController extends Controller
         $data = $request->validated();
 
         $paymentMethodStatus = PaymentMethodStatus::create([
-          'name' => $data['name'],
+          'name'        => $data['name'],
           'description' => $data['description'],
         ]);
 
@@ -48,7 +48,7 @@ class PaymentMethodStatusController extends Controller
      */
     public function show(PaymentMethodStatus $paymentMethodStatus)
     {
-        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus);
+        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus->id);
 
         return $paymentMethodStatus;
     }
@@ -64,7 +64,7 @@ class PaymentMethodStatusController extends Controller
     {
         $data = $request->validated();
 
-        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus);
+        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus->id);
 
         $paymentMethodStatus->name = $data['name'];
         $paymentMethodStatus->description = $data['description'];
@@ -82,8 +82,10 @@ class PaymentMethodStatusController extends Controller
      */
     public function destroy(PaymentMethodStatus $paymentMethodStatus)
     {
-        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus);
+        $paymentMethodStatus = PaymentMethodStatus::find($paymentMethodStatus->id);
 
-        return $paymentMethodStatus->delete();
+        $paymentMethodStatus->delete();
+
+        return response('resource updated successfully', 200);
     }
 }

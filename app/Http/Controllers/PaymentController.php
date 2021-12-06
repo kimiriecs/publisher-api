@@ -6,6 +6,8 @@ use App\Http\Requests\PaymentCreateRequest;
 use App\Http\Requests\PaymentUpdateRequest;
 use App\Models\Payment;
 use App\Models\PaymentStatus;
+use App\Models\Subscription;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
@@ -24,13 +26,16 @@ class PaymentController extends Controller
 
 
     /**
-     * Display a listing of the CONCRETE user' payments .
-     *
+     * Display a listing of the CONCRETE user' payments
+     * 
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function userPayments($user)
+    public function userPayments(User $user)
     {
-        $payments = Payment::where('user_id', $user)->paginate(10);
+        $payments = Payment::where('user_id', $user->id)
+                            ->orderByDesc('created_at')
+                            ->paginate(10);
 
         return $payments;
     }
@@ -45,7 +50,9 @@ class PaymentController extends Controller
     {
         $user = Auth::user();
         
-        $payments = Payment::where('user_id', $user)->paginate(10);
+        $payments = Payment::where('user_id', $user->id)
+                            ->orderByDesc('created_at')
+                            ->paginate(10);
 
         return $payments;
     }
@@ -54,10 +61,11 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param \App\Models\Subscription $subscription
      * @param  \App\Http\Requests\PaymentCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($subscription_id, PaymentCreateRequest $request)
+    public function store(Subscription $subscription, PaymentCreateRequest $request)
     {
         $data = $request->validated();
 
@@ -65,7 +73,7 @@ class PaymentController extends Controller
             'encryption'        => rand(1000000000, 9999999999),
             'amount'            => $data['amount'],
             'user_id'           => Auth::user()->id,
-            'subscription_id'   => $subscription_id,
+            'subscription_id'   => $subscription->id,
             'payment_status_id' => PaymentStatus::where('name', 'pending')->first('id')->id,
         ]);
         
@@ -82,39 +90,39 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        $payment = Payment::find($payment);
+        $payment = Payment::find($payment->id);
 
         return $payment;
     }
 
 
     /**
-     * Display the specified payment of CONCRETE user
+     * Display payment of CONCRETE user
      *
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function userPaymentShow($user, Payment $payment)
+    public function userPaymentsShow(User $user)
     {
-        $payment = Payment::where('user_id', $user)->find($payment);
+        $payments = Payment::where('user_id', $user->id)->get();
 
-        return $payment;
+        return $payments;
     }
 
 
     /**
-     * Display the specified payment of currently authenticated user
+     * Display payment of currently authenticated user
      *
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function currentUserPaymentShow(Payment $payment)
+    public function currentUserPaymentsShow()
     {
         $user = Auth::user();
 
-        $payment = Payment::where('user_id', $user)->find($payment);
+        $payments = Payment::where('user_id', $user->id)->get();
 
-        return $payment;
+        return $payments;
     }
 
     /**
@@ -128,7 +136,7 @@ class PaymentController extends Controller
     {
         $data = $request->validate();
 
-        $payment = Payment::find($payment);
+        $payment = Payment::find($payment->id);
 
         $payment->encryption = $data['encryption'];
         $payment->amount = $data['amount'];
@@ -152,6 +160,8 @@ class PaymentController extends Controller
     public function updatePaymentStatus(PaymentUpdateRequest $request, Payment $payment)
     {
         $data = $request->validate();
+        
+        $payment = Payment::find($payment->id);
 
         $payment->payment_status_id = $data['payment_status_id'];
 
@@ -168,8 +178,10 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        $payment = Payment::find($payment);
+        $payment = Payment::find($payment->id);
 
-        return $payment->delete();
+        $payment->delete();
+
+        return response('resource deleted successfully', 200);
     }
 }

@@ -26,9 +26,9 @@ class PaymentUpdateRequest extends FormRequest
         return [
             'encryption'            => 'required|numeric|max:255',
             'amount'                => 'required|numeric|gte:0',
-            'user_id'               => 'required|exists:users|unique:users',
-            'subscription_id'       => 'required|exists:subscriptions|unique:subscriptions',
-            'payment_status_id'     => 'required|exists:payment_statuses|unique:payment_statuses',
+            'user_id'               => 'required|exists:users',
+            'subscription_id'       => 'required|exists:subscriptions',
+            'payment_status_id'     => 'required|exists:payment_statuses',
         ];
     }
 

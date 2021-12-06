@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\PostRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\User;

@@ -32,8 +32,8 @@ class CurrencyController extends Controller
         $data = $request->validated();
 
         $currency = Currency::create([
-          'name' => $data['name'],
-          'symbol' => $data['symbol'],
+          'name'    => $data['name'],
+          'symbol'  => $data['symbol'],
         ]);
 
         $currency->save();
@@ -49,7 +49,7 @@ class CurrencyController extends Controller
      */
     public function show(Currency $currency)
     {
-        $currency = Currency::find($currency);
+        $currency = Currency::find($currency->id);
 
         return $currency;
     }
@@ -65,7 +65,7 @@ class CurrencyController extends Controller
     {
         $data = $request->validated();
 
-        $currency = Currency::find($currency);
+        $currency = Currency::find($currency->id);
 
         $currency->name = $data['name'];
         $currency->symbol = $data['symbol'];
@@ -83,6 +83,10 @@ class CurrencyController extends Controller
      */
     public function destroy(Currency $currency)
     {
-        //
+        $currency = Currency::find($currency->id);
+
+        $currency->delete();
+
+        return response('resource deleted successfully', 200);
     }
 }

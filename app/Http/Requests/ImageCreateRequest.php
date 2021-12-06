@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PaymentMethodUpdateRequest extends FormRequest
+class ImageCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class PaymentMethodUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'                      => 'required|string|min:3|max:255',
-            'payment_method_status_id'  => 'required|exists:payment_method_statuses',
+            'url'           => 'required|url|min:3|max:255',
+            'description'   => 'required|string|min:3|max:300',
         ];
     }
 
@@ -37,8 +37,8 @@ class PaymentMethodUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name'                      => 'name INVALID',
-            'payment_method_status_id'  => 'payment_method_status_id INVALID',
+            'url'           => 'url INVALID',
+            'description'   => 'description INVALID',
         ];
     }
 

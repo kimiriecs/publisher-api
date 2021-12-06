@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PaymentMethodUpdateRequest extends FormRequest
+class CategoryCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,10 @@ class PaymentMethodUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'                      => 'required|string|min:3|max:255',
-            'payment_method_status_id'  => 'required|exists:payment_method_statuses',
+            'name'                  => 'required|string|min:3|max:255',
+            'slug'                  => 'required|string|min:3|max:255',
+            'description'           => 'required|string|min:3|max:255',
+            'parent_category_id'    => 'required|exists:categories',
         ];
     }
 
@@ -37,8 +39,10 @@ class PaymentMethodUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name'                      => 'name INVALID',
-            'payment_method_status_id'  => 'payment_method_status_id INVALID',
+            'name'                  => 'name INVALID',
+            'slug'                  => 'slug INVALID',
+            'description'           => 'description INVALID',
+            'parent_category_id'    => 'parent_category_id INVALID',
         ];
     }
 

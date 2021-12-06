@@ -7,6 +7,7 @@ use App\Http\Requests\SubscriptionCreateRequest;
 use App\Http\Requests\SubscriptionUpdateRequest;
 use App\Models\SubscriptionStatus;
 use App\Models\Subscription;
+use App\Models\User;
 
 class SubscriptionController extends Controller
 {
@@ -26,11 +27,12 @@ class SubscriptionController extends Controller
     /**
      * Display a listing of the CONCRETE user's subscriptions
      *
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function userSubscriptions($user)
+    public function userSubscriptions(User $user)
     {
-        $subscriptions = Subscription::where('user_id', $user)->paginate(10);
+        $subscriptions = Subscription::where('user_id', $user->id)->paginate(10);
 
         return $subscriptions;
     }
@@ -45,7 +47,7 @@ class SubscriptionController extends Controller
     {
         $user = Auth::user();
         
-        $subscriptions = Subscription::where('user_id', $user)->paginate(10);
+        $subscriptions = Subscription::where('user_id', $user->id)->paginate(10);
 
         return $subscriptions;
     }
@@ -88,40 +90,39 @@ class SubscriptionController extends Controller
      */
     public function show(Subscription $subscription)
     {
-        $subscription = Subscription::find($subscription);
-
-        return $subscription;
-    }
-
-
-        /**
-     * Display the specified subscription of CONCRETE user
-     *
-     * @param  \App\Models\Subscription  $subscription
-     * @return \Illuminate\Http\Response
-     */
-    public function userSubscriptionShow($user, Subscription $subscription)
-    {
-        $subscription = Subscription::where('user_id', $user)->find($subscription);
+        $subscription = Subscription::find($subscription->id);
 
         return $subscription;
     }
 
 
     /**
-     * Display the specified subscription of currently authenticated user
+     * Display subscriptions of CONCRETE user
      *
-     * @param  \App\Models\Subscription  $subscription
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function currentUserSubscriptionShow(Subscription $subscription)
+    public function userSubscriptionsShow(User $user)
     {
+        $subscriptions = Subscription::where('user_id', $user->id)->get();
 
+        return $subscriptions;
+    }
+
+
+    /**
+     * Display subscriptions of currently authenticated user
+     *
+     * @param \App\Models\User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function currentUserSubscriptionsShow(Subscription $subscription)
+    {
         $user = Auth::user();
 
-        $subscription = Subscription::where('user_id', $user)->find($subscription);
+        $subscriptions = Subscription::where('user_id', $user->id)->get();
 
-        return $subscription;
+        return $subscriptions;
     }
 
 
@@ -135,6 +136,8 @@ class SubscriptionController extends Controller
     public function update(SubscriptionUpdateRequest $request, Subscription $subscription)
     {
         $data = $request->validate();
+
+        $subscription = Subscription::find($subscription->id);
 
         $subscription->encryption = $data['encryption'];
         $subscription->posts_total_count = $data['posts_total_count'];
@@ -162,6 +165,8 @@ class SubscriptionController extends Controller
     {
         $data = $request->validate();
 
+        $subscription = Subscription::find($subscription->id);
+
         $subscription->subscription_status_id = $data['subscription_status_id'];
 
         $subscription->save();
@@ -177,8 +182,10 @@ class SubscriptionController extends Controller
      */
     public function destroy(Subscription $subscription)
     {
-        $subscription = Subscription::find($subscription);
+        $subscription = Subscription::find($subscription->id);
 
-        return $subscription->delete();
+        $subscription->delete();
+
+        return response('resource deleted successfully', 200);
     }
 }

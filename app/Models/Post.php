@@ -29,7 +29,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $with = ['author', 'category', 'status'];
+    protected $with = ['author', 'category', 'status', 'images'];
 
     /**
      * Get user that post belongs to
@@ -66,8 +66,8 @@ class Post extends Model
     /**
      * Get the AdminProfile's image model
      */
-    public function image()
+    public function images()
     {
-        return $this->morphOne(Image::class, 'image');
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

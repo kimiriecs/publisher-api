@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Interfaces;
 
 use App\Models\Category;
 use App\Models\User;
+
 
 interface PostRepositoryInterface {
 

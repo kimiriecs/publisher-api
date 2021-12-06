@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Interfaces;
 
 use App\Models\Role;
+
+
 interface UserRepositoryInterface {
 
   public function getAllUsers();

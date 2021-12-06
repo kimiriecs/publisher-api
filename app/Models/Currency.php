@@ -13,11 +13,11 @@ class Currency extends Model
 
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that are mass assignable
      *
      * @var array
      */
-    protected $hidden = [
+    protected $fillable = [
         'name',
         'symbol',
     ];

@@ -31,8 +31,8 @@ class PostStatusController extends Controller
         $input = $request->validated();
 
         $postStatus = PostStatus::create([
-          'name' => $input['name'],
-          'description' => $input['description'],
+          'name'            => $input['name'],
+          'description'     => $input['description'],
         ]);
 
         $postStatus->save();
@@ -48,7 +48,7 @@ class PostStatusController extends Controller
      */
     public function show(PostStatus $postStatus)
     {
-        $postStatus = PostStatus::find($postStatus);
+        $postStatus = PostStatus::find($postStatus->id);
 
         return $postStatus;
     }
@@ -64,7 +64,7 @@ class PostStatusController extends Controller
     {
         $data = $request->validated();
 
-        $postStatus = PostStatus::find($postStatus);
+        $postStatus = PostStatus::find($postStatus->id);
 
         $postStatus->name = $data['name'];
         $postStatus->description = $data['description'];
@@ -82,8 +82,10 @@ class PostStatusController extends Controller
      */
     public function destroy(PostStatus $postStatus)
     {
-        $postStatus = PostStatus::find($postStatus);
+        $postStatus = PostStatus::find($postStatus->id);
 
-        return $postStatus->delete();
+        $postStatus->delete();
+
+        return response('resource updated successfully', 200);
     }
 }

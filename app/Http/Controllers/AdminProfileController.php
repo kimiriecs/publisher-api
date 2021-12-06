@@ -7,6 +7,8 @@ use App\Http\Requests\AdminProfileUpdateRequest;
 use App\Models\AdminProfile;
 use Illuminate\Support\Str;
 
+use function PHPUnit\Framework\returnSelf;
+
 class AdminProfileController extends Controller
 {
     /**
@@ -50,7 +52,7 @@ class AdminProfileController extends Controller
      */
     public function show(AdminProfile $adminProfile)
     {
-        $adminProfile = AdminProfile::find($adminProfile);
+        $adminProfile = AdminProfile::find($adminProfile->id);
 
         return $adminProfile;
     }
@@ -66,7 +68,7 @@ class AdminProfileController extends Controller
     {
         $data = $request->validate();
 
-        $adminProfile = AdminProfile::find($adminProfile);
+        $adminProfile = AdminProfile::find($adminProfile->id);
 
         $adminProfile->uuid = (string) Str::uuid();
         $adminProfile->nickname = $data['nickname'];
@@ -85,8 +87,10 @@ class AdminProfileController extends Controller
      */
     public function destroy(AdminProfile $adminProfile)
     {
-        $adminProfile = AdminProfile::find($adminProfile);
+        $adminProfile = AdminProfile::find($adminProfile->id);
 
-        return $adminProfile->delete();
+        $adminProfile->delete();
+
+        return response('resource deleted successfully', 200);
     }
 }
