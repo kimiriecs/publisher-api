@@ -28,7 +28,7 @@ class PaymentStatusController extends Controller
      */
     public function store(StatusCreateRequest $request)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $paymentStatuses = PaymentStatus::create([
           'name'        => $data['name'],
@@ -62,7 +62,7 @@ class PaymentStatusController extends Controller
      */
     public function update(StatusUpdateRequest $request, PaymentStatus $paymentStatus)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $paymentStatus = PaymentStatus::find($paymentStatus->id);
 

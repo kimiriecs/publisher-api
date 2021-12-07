@@ -20,6 +20,7 @@ class UserProfile extends Model
     protected $fillable = [
         'uuid',
         'nikname',
+        'phone',
     ];
 
 

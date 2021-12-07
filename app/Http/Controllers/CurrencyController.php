@@ -29,7 +29,7 @@ class CurrencyController extends Controller
      */
     public function store(CurrencyCreateRequest $request)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $currency = Currency::create([
           'name'    => $data['name'],
@@ -63,7 +63,7 @@ class CurrencyController extends Controller
      */
     public function update(CurrencyUpdateRequest $request, Currency $currency)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $currency = Currency::find($currency->id);
 

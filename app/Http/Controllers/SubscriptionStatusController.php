@@ -29,7 +29,7 @@ class SubscriptionStatusController extends Controller
      */
     public function store(StatusCreateRequest $request)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $subscriptionStatus = SubscriptionStatus::create([
           'name' => $data['name'],
@@ -63,7 +63,7 @@ class SubscriptionStatusController extends Controller
      */
     public function update(StatusUpdateRequest $request, SubscriptionStatus $subscriptionStatus)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $subscriptionStatus = SubscriptionStatus::find($subscriptionStatus->id);
 

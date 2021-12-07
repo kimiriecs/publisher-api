@@ -28,7 +28,7 @@ class PostStatusController extends Controller
      */
     public function store(StatusCreateRequest $request)
     {
-        $input = $request->validatedd();
+        $input = $request->validated();
 
         $postStatus = PostStatus::create([
           'name'            => $input['name'],
@@ -62,7 +62,7 @@ class PostStatusController extends Controller
      */
     public function update(StatusUpdateRequest $request, PostStatus $postStatus)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $postStatus = PostStatus::find($postStatus->id);
 

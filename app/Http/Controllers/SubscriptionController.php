@@ -61,7 +61,7 @@ class SubscriptionController extends Controller
      */
     public function store($subscription_id, SubscriptionCreateRequest $request)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $subscription = Subscription::create([
 

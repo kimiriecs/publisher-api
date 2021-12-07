@@ -10,7 +10,7 @@ class RegisterController extends Controller
 {
     protected function register(UserRegisterRequest $request)
     {
-        $input = $request->validatedd();
+        $input = $request->validated();
         $user = User::create([
           'name' => $input['name'],
           'email' => $input['email'],

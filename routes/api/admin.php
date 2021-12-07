@@ -59,7 +59,7 @@ Route::middleware(['auth:sanctum'])
 
 	Route::apiResource('user-statuses', UserStatusController::class)
 			->names(['index' => 'all'])
-			->parameters(['user_status' => 'status']);;
+			->parameters(['user-statuses' => 'status']);;
 
 #	User Routes END
 #--------------------------------------------------------------------------
@@ -82,11 +82,11 @@ Route::middleware(['auth:sanctum'])
 
 		Route::apiResource('admin-profiles', AdminProfileController::class)
 			->names(['index' => 'all'])
-			->parameters(['admin_profiles' => 'profile']);
+			->parameters(['admin-profiles' => 'profile']);
 
 		Route::apiResource('user-profiles', UserProfileController::class)
 			->names(['index' => 'all'])
-			->parameters(['user_profiles' => 'profile']);
+			->parameters(['user-profiles' => 'profile']);
 	});
 
 #	Profile Routes END
@@ -100,7 +100,7 @@ Route::middleware(['auth:sanctum'])
 
 	Route::apiResource('subscripition-plan-statuses', SubscriptionPlanStatusController::class)
 			->names(['index' => 'all'])
-			->parameters(['subscripition_plan_status' => 'status']);
+			->parameters(['subscripition-plan-statuses' => 'status']);
 
 #	Subscription Plan Routes END
 #--------------------------------------------------------------------------
@@ -113,7 +113,7 @@ Route::middleware(['auth:sanctum'])
 
 	Route::apiResource('subscripition-statuses', SubscriptionStatusController::class)
 			->names(['index' => 'all'])
-			->parameters(['subscripition_status' => 'status']);
+			->parameters(['subscripition-statuses' => 'status']);
 
 #	Subscription Routes END
 #--------------------------------------------------------------------------
@@ -126,7 +126,7 @@ Route::middleware(['auth:sanctum'])
 
 	Route::apiResource('payment-statuses', PaymentStatusController::class)
 			->names(['index' => 'all'])
-			->parameters(['payment_status' => 'status']);
+			->parameters(['payment-statuses' => 'status']);
 
 
 	Route::prefix('user/payments')
@@ -169,7 +169,7 @@ Route::middleware(['auth:sanctum'])
 
 	Route::apiResource('post-statuses', PostStatusController::class)
 			->names(['index' => 'all'])
-			->parameters(['post_status' => 'status']);
+			->parameters(['post-statuses' => 'status']);
 
 #	Post Routes END
 #--------------------------------------------------------------------------

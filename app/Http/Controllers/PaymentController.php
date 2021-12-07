@@ -67,7 +67,7 @@ class PaymentController extends Controller
      */
     public function store(Subscription $subscription, PaymentCreateRequest $request)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $payment = Payment::create([
             'encryption'        => rand(1000000000, 9999999999),

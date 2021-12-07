@@ -28,7 +28,7 @@ class UserStatusController extends Controller
      */
     public function store(StatusCreateRequest $request)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $userStatus = UserStatus::create([
           'name' => $data['name'],
@@ -62,7 +62,7 @@ class UserStatusController extends Controller
      */
     public function update(StatusUpdateRequest $request, UserStatus $userStatus)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $userStatus = UserStatus::find($userStatus->id);
 

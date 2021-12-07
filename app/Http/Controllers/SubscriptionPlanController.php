@@ -29,7 +29,7 @@ class SubscriptionPlanController extends Controller
      */
     public function store(SubscriptionPlanCreateRequest $request)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $subscriptionPlan = SubscriptionPlan::create([
             'name'                          => $data['name'],
@@ -66,7 +66,7 @@ class SubscriptionPlanController extends Controller
      */
     public function update(SubscriptionPlanUpdateRequest $request, SubscriptionPlan $subscriptionPlan)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $subscriptionPlan = SubscriptionPlan::find($subscriptionPlan->id);
         
@@ -91,7 +91,7 @@ class SubscriptionPlanController extends Controller
      */
     public function updateSubscriptionPlanStatus(SubscriptionPlanUpdateRequest $request, SubscriptionPlan $subscriptionPlan)
     {
-        $data = $request->validatedd();
+        $data = $request->validated();
 
         $subscriptionPlan = SubscriptionPlan::find($subscriptionPlan->id);
 
