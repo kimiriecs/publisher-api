@@ -15,8 +15,8 @@ class UserProfileFactory extends Factory
     {
         $data = [
             'uuid' => $this->faker->uuid(),
-            'nikname' => $this->faker->userName(),
-            'phone' => $this->faker->phoneNumber(),
+            'nikname' => $this->faker->firstName() . '&#64;' . $this->faker->lastName(),
+            'phone' => $this->faker->e164PhoneNumber(),
         ];
 
         return $data;

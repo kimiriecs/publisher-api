@@ -21,7 +21,11 @@ class UserFactory extends Factory
     public function definition()
     {
         
-        $name = $this->faker->name();
+        $first_name = $this->faker->firstName();
+
+        $last_name = $this->faker->lastName();
+
+        $full_name = $first_name . ' ' . $last_name;
 
         $email = $this->faker->unique()->safeEmail();
 
@@ -29,7 +33,7 @@ class UserFactory extends Factory
 
         $password = Hash::make('password');
 
-        $slug =  Str::slug($name);
+        $slug =  Str::slug($full_name);
 
         $remember_token = Str::random(10);
         
@@ -38,7 +42,8 @@ class UserFactory extends Factory
 
 
         $data = [
-            'name' => $name,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
             'email' => $email,
             'email_verified_at' => $email_verified_at,
             'password' => $password,

@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRegisterRequest;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Services\UserManagmentService;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    protected function register(UserRegisterRequest $request)
+	/**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\UserRegisterRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function register(UserRegisterRequest $request, UserManagmentService $manager)
     {
-        $input = $request->validated();
-        $user = User::create([
-          'name' => $input['name'],
-          'email' => $input['email'],
-          'password' => Hash::make($input['password']),
-        ]);
+		$user = $manager->createUser($request);
 
         $accessToken = $user->createToken('accessToken')->plainTextToken;
 
@@ -23,4 +24,7 @@ class RegisterController extends Controller
 
         return response($response, 201);
     }
+
+
+
 }

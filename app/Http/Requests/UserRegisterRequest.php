@@ -24,9 +24,12 @@ class UserRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'                => 'required|string|max:255',
-            'email'               => 'required|string|email|unique:users',
-            'password'            => 'required|string|min:8|confirmed',
+            'first_name'    => 'required|string|max:255',
+            'last_name'     => 'required|string|max:255',
+            'email'         => 'required|string|email|unique:users',
+            'password'      => 'required|string|min:8|confirmed',
+            'nikname'       => 'string|min:3|max:30',
+            'phone'         => 'string|max:20',
         ];
     }
 
@@ -38,13 +41,17 @@ class UserRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-                'name.required'               => 'Введите :attribute',
-                'name.string'                 => 'Введите корректное :attribute',
-                'email.required'              => 'Введите :attribute',
-                'email.email'                 => 'Введите корректный :attribute',
-                'password.required'           => 'Введите :attribute',
-                'password.min'                => 'Минимальная длина пароля :min символов',
-                'password.confirmed'          => 'Пароль не подтвержден',
+                'first_name.required'   => 'Введите :attribute',
+                'first_name.string'     => 'Введите корректное :attribute',
+                'last_name.required'    => 'Введите :attribute',
+                'last_name.string'      => 'Введите корректное :attribute',
+                'email.required'        => 'Введите :attribute',
+                'email.email'           => 'Введите корректный :attribute',
+                'password.required'     => 'Введите :attribute',
+                'password.min'          => 'Минимальная длина пароля :min символов',
+                'password.confirmed'    => 'Пароль не подтвержден',
+                'nikname'               => 'nikname INVALID',
+                'phone'                 => 'phone INVALID',
         ];
     }
 
@@ -56,7 +63,8 @@ class UserRegisterRequest extends FormRequest
     public function attributes()
     {
         return [
-                'name'              => 'имя',
+                'first_name'        => 'имя',
+                'last_name'         => 'фамилия',
                 'email'             => 'email',
                 'password'          => 'пароль',
                 'min'               => 8,

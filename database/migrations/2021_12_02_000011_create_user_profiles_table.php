@@ -17,7 +17,7 @@ class CreateUserProfilesTable extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('nikname')->nullable()->unique();
-            $table->string('phone')->nullable()->unique();
+            $table->string('phone')->nullable()->default(null)->unique();
             $table->timestamps();
             $table->softDeletes();
         });

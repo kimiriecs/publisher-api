@@ -24,9 +24,9 @@ class UserProfileUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'uuid'      => 'required|string|min:3|max:255',
-            'nikname'   => 'required|string|min:3|max:30',
-            'phone'     => 'required|string|max:20',
+            'uuid'      => 'string|min:3|max:255',
+            'nikname'   => 'string|min:3|max:30',
+            'phone'     => 'string|max:20',
         ];
     }
 

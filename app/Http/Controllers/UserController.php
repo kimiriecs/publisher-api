@@ -29,26 +29,6 @@ class UserController extends Controller
         return $users;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\UserRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(UserRequest $request)
-    {
-        $input = $request->validated();
-
-        $user = User::create([
-          'name' => $input['name'],
-          'email' => $input['email'],
-          'password' => Hash::make($input['password']),
-        ]);
-
-        $user->save();
-
-        return $user;
-    }
 
     /**
      * Display the specified resource.

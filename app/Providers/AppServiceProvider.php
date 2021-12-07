@@ -14,6 +14,7 @@ use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use App\Interfaces\PostRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Services\UserManagmentService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+        // $service = new UserManagmentService();
+
+        $this->app->bind(UserManagmentService::class, function ($app) {
+            return new UserManagmentService();
+        });
+
         $this->app->bind(
             UserRepositoryInterface::class, 
             UserRepository::class
@@ -33,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
             PostRepositoryInterface::class, 
             PostRepository::class
         );
+
     }
 
     /**

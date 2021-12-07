@@ -22,25 +22,6 @@ class UserProfileController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\UserProfileCreateRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(UserProfileCreateRequest $request)
-    {
-        $data = $request->validated();
-
-        $userProfile = UserProfile::create([
-            'uuid'      => (string) Str::uuid(),
-            'nikname'   => $data['nikname'],
-            'phone'     => $data['phone'], 
-        ]);
-
-        return $userProfile;
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\UserProfile  $userProfile
