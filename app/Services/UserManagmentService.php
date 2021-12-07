@@ -39,7 +39,7 @@ class UserManagmentService
 						: $data['first_name'] . '&#64;' . $data['last_name'];
 
 		$userPhone = array_key_exists('phone', $data) && isset($data['phone']) 
-						? $data['phone'] : 'no phone';
+						? $data['phone'] : null;
 
 		$userProfileData = [
 			'nikname' => $userNikname,
